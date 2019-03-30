@@ -11,7 +11,7 @@ class Infaq_Detail extends Model
     	'tanggal',
     	'tipe',
     	'nominal',
-    	'keterangan',
+    	'keterangan'
     ];
 
     protected $table = 'infaq_detail';

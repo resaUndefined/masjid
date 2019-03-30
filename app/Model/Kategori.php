@@ -9,8 +9,14 @@ class Kategori extends Model
     protected $fillable = [
     	'kategori',
     	'slug',
-    	'deskripsi',
+    	'deskripsi'
     ];
 
     protected $table = 'kategori';
+
+    public function posts()
+    {
+        return $this->hasMany('App\Model\Post');
+    }
+    
 }

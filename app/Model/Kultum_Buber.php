@@ -9,7 +9,13 @@ class Kultum_Buber extends Model
 	protected $fillable = [
 		'jadwal_id',
 		'user_id',
-		'jadwal',
+		'jadwal'
 	];
     protected $table = 'kultum_buber';
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
+    
 }

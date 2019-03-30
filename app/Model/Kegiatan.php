@@ -10,8 +10,7 @@ class Kegiatan extends Model
     	'kegiatan',
     	'slug',
     	'isi',
-    	'image',
-    	'slider',
+    	'slider'
     ];
 
     protected $table = 'kegiatan';

@@ -10,7 +10,7 @@ class Donatur_Takjil extends Model
     	'jadwal_id',
     	'members',
     	'jumlah',
-    	'jadwal',
+    	'jadwal'
     ];
 
     protected $table = 'donatur__takjil';

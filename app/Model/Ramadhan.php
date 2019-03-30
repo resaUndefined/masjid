@@ -8,8 +8,13 @@ class Ramadhan extends Model
 {
 	protected $fillable = [
 		'ramadhan',
-		'tema',
+		'tema'
 	];
 
     protected $table = 'ramadhan';
+
+    public function jadwal_ramadhans()
+    {
+    	return $this->hasMany('App\Model\Jadwal_Ramadhan');
+    }
 }

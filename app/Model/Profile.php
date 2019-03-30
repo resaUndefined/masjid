@@ -15,8 +15,14 @@ class Profile extends Model
 		'email',
 		'facebook',
 		'ig',
-		'twitter',
+		'twitter'
 	];
 
     protected $table = 'profile';
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
+    
 }

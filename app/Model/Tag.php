@@ -8,7 +8,7 @@ class Tag extends Model
 {
 	protected $fillable = [
 		'tag_name',
-		'slug',
+		'slug'
 	];
 
     protected $table = 'tag';

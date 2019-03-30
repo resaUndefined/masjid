@@ -9,7 +9,7 @@ class Piket_Takjil extends Model
 	protected $fillable = [
 		'jadwal_id',
 		'members',
-		'jadwal',
+		'jadwal'
 	];
 
     protected $table = 'piket__takjil';
