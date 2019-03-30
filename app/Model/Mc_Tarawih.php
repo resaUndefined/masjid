@@ -9,8 +9,14 @@ class Mc_Tarawih extends Model
     protected $fillable = [
 		'jadwal_id',
 		'user_id',
-		'jadwal',
+		'jadwal'
 	];
 	
     protected $table = 'mc_tarawih';
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

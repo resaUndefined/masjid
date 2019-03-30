@@ -10,7 +10,7 @@ class Pengumuman extends Model
     	'pengumuman',
     	'slug',
     	'isi',
-    	'file',
+    	'file'
     ];
 
     protected $table = 'pengumuman';

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotifikasisTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateNotifikasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('notifikasi', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('notifikasi');
-            $table->string('url');
             $table->integer('user_id')->unsigned();
+            $table->string('notif');
+            $table->string('link');
             $table->boolean('status')->default(0);
             $table->timestamps();
 
@@ -34,6 +34,6 @@ class CreateNotifikasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifikasi');
+        Schema::dropIfExists('notifications');
     }
 }

@@ -4,18 +4,17 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Jadwal_Bilal extends Model
+class Notification extends Model
 {
     protected $fillable = [
-    	'jadwal_id',
+    	'notif',
+    	'link',
     	'user_id',
-    	'jadwal'
+    	'status'
     ];
-
-    protected $table = 'jadwal_bilal';
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+    	return $this->hasOne('App\User');
     }
 }

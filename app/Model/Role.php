@@ -8,6 +8,14 @@ class Role extends Model
 {
     protected $fillable = [
     	'role',
-    	'level',
+    	'level'
     ];
+
+    // relationship
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
+    
 }
