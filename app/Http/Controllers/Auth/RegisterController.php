@@ -6,6 +6,10 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Str;
+use App\Mail\VerifyMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -48,9 +52,16 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+        ],
+        [
+            'email.required' => 'Harap masukkan email address anda',
+            'email.email' => 'Format email tidak sesuai',
+            'email.unique:users' => 'Email sudah digunakan sebelumnya',
+            'password.required' => 'Harap masukkan password',
+            'password.min' => 'Minimal karakter password terdiri dari 6 digit',
+            'password.confirmed' => 'Kombinasi password dan password konfirmasi tidak sama',
         ]);
     }
 
@@ -62,10 +73,45 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user =  User::create([
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'role_id' => 4,
+            'is_active' => 1,
+            'verification_token' => Str::random(40),
         ]);
+
+        Mail::to($user->email)->send(new VerifyMail($user));
+
+        return $user;
     }
+
+
+    protected function registered(Request $request, $user)
+    {
+        $this->guard()->logout();
+        return redirect('/login')->with('status', 'Kami telah mengirim aktivasi kode. Silakan cek email untuk verifikasi email.');
+    }
+
+
+    public function verifyUser($token)
+    {
+        $verifyUser = User::where('verification_token', $token)->first();
+        if(isset($verifyUser)){
+            $user = $verifyUser;
+            if(!$user->verified) {
+                $user->verified = 1;
+                $user->verification_token = null;
+                $user->save();
+                $status = "Email anda sudah terverifikasi. Anda sekarang bisa login.";
+            }else{
+                $status = "Email anda sudah terverifikasi. Anda sekarang bisa login.";
+            }
+        }else{
+            return redirect('/login')->with('warning', "Maaf email anda tidak diketahui.");
+        }
+
+        return redirect('/login')->with('status', $status);
+    }
+
 }
