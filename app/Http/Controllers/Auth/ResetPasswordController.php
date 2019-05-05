@@ -68,7 +68,7 @@ class ResetPasswordController extends Controller
                 $password = $request->get('password');
                 $password_confirmation = $request->get('password_confirmation');
                 $validator = Validator::make($request->all(), [
-                        'password' => 'required',
+                        'password' => 'required|min:6',
                         'password_confirmation' => 'required',
                         'password_confirmation' => 'required|same:password',
                     ],

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\user;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // $user_role = Auth::user()->role->level;
+        // dd($user_role);
+        return view('admin.index');
+    }
+
+
+    public function admin()
+    {
+        return view('admin.admin');
     }
 }
