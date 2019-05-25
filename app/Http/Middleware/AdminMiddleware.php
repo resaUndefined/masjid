@@ -17,9 +17,9 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role->level != 4){
-            return $next($request);
+        if(auth()->check() && $request->user()->role->level == 4){
+            return redirect()->guest('home');
         }
-        return redirect('home')->with('error','You have not admin access');
+        return $next($request);
     }
 }

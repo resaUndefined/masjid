@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
         <section class="login_content">
-            <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+            <form class="form-horizontal" method="POST" action="{{ route('login.custom') }}">
                 {{ csrf_field() }}
                 <h1>Login</h1>
                 @if (session('status'))
@@ -25,6 +25,11 @@
                 @if ($errors->has('password'))
                     <span class="help-block alert alert-danger">
                         <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+                @if(Session::has('message'))
+                    <span class="help-block alert alert-warning">
+                        <strong>{{ Session::get('message') }}</strong>
                     </span>
                 @endif
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
