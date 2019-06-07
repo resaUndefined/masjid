@@ -25,14 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $user_role = Auth::user()->role->level;
-        // dd($user_role);
-        return view('admin.index');
-    }
-
-
-    public function admin()
-    {
-        return view('admin.admin');
+        $user_role = Auth::user()->role->level;
+        if ($user_role > 3) {
+            return redirect()->route('user');
+        }else{
+            return redirect()->route('admin');
+        }
     }
 }

@@ -23,7 +23,7 @@ class LoginController extends Controller
 	    					'email' => $request->email,
 	    					'is_active' => 1
 	    				])->first();
-				if ($user->role->level == 1) {
+				if ($user->role->level <= 3) {
 	    			return redirect()->route('admin');
 	    		}
 	    		return redirect()->route('user');
@@ -31,5 +31,11 @@ class LoginController extends Controller
 	    	return redirect()->back()->with('message', 'Maaf Kombinasi email dan password tidak sesuai');
     	}
 	    return redirect()->back()->with('message', 'Maaf akun anda tidak aktif, silakan contact Administrator!');
+    }
+
+
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/');
     }
 }

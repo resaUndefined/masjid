@@ -27,12 +27,10 @@ Route::get('/', function(){
 	return view('welcome');
 });
 Route::group(['middleware' => ['web', 'auth']], function(){
-	Route::get('/admin', function(){
-		return view('admin.admin');
-	})->name('admin');
-	Route::get('/user', function(){
-		return view('admin.index');
-	})->name('user');
+	Route::get('logout', 'LoginController@logout')->name('logout.custom');
+	Route::get('/admin', 'Admin\DashboardController@index')->name('admin');
+	Route::get('/user', 'Member\DashboardController@index')->name('user');
+	Route::get('/home', 'HomeController@index')->name('home');
 });
 // Route::group(['middleware' => ['web', 'auth']], function(){
 
