@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>Gentelella Alela! | </title>
+    <title>Masjid Pangeran Mangkubumi</title>
 
     <!-- Bootstrap -->
     <link href="{{url('assets/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -25,7 +25,8 @@
     <link href="{{url('assets/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="{{url('assets/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> --}}
     <!-- Custom Theme Style -->
     <link href="{{url('assets/build/css/custom.min.css')}}" rel="stylesheet">
   </head>
@@ -50,7 +51,45 @@
         <!-- /footer content -->
       </div>
     </div>
+    <script>
+      $(document).ready(function() {
+  /**
+   * for showing edit item popup
+   */
 
+      $(document).on('click', "#edit-item", function() {
+        $(this).addClass('edit-item-trigger-clicked'); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.
+
+        var options = {
+          'backdrop': 'static'
+        };
+        $('#edit-modal').modal(options)
+      })
+
+      // on modal show
+      $('#edit-modal').on('show.bs.modal', function() {
+        var el = $(".edit-item-trigger-clicked"); // See how its usefull right here? 
+        var row = el.closest(".data-row");
+
+        // get the data
+        var id = el.data('item-id');
+        var name = row.children(".name").text();
+        var description = row.children(".description").text();
+
+        // fill the data in the input fields
+        $("#modal-input-id").val(id);
+        $("#modal-input-name").val(name);
+        $("#modal-input-description").val(description);
+
+      })
+
+      // on modal hide
+      $('#edit-modal').on('hide.bs.modal', function() {
+          $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
+          $("#edit-form").trigger("reset");
+        })
+      })
+    </script>
     <!-- jQuery -->
     <script src="{{url('assets/vendors/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap -->

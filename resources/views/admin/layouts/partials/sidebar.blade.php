@@ -36,7 +36,7 @@
           </li>
           @if ($userLogged->role->level <= 3)
             <li>
-              <a href="#"><i class="fa fa-users"></i> Manajemen Roles</a>
+              <a href="{{ Route('roles.index') }}"><i class="fa fa-users"></i> Manajemen Roles</a>
             </li>
             <li>
             <a href="#"><i class="fa fa-users"></i> Manajemen Users</a>
@@ -97,16 +97,16 @@
     <!-- /sidebar menu -->
     <!-- /menu footer buttons -->
     <div class="sidebar-footer hidden-small">
-      <a data-toggle="tooltip" data-placement="top" title="Settings">
-        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+      <a data-toggle="tooltip" data-placement="top" title="Home" href="/">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
       </a>
-      <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+      <a data-toggle="tooltip" data-placement="top" title="Dashboard" href="/home">
+        <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
       </a>
-      <a data-toggle="tooltip" data-placement="top" title="Lock">
-        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+      <a data-toggle="tooltip" data-placement="top" title="Users">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
       </a>
-      <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+      <a data-toggle="tooltip" data-placement="top" title="Logout" href="/logout">
         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
       </a>
     </div>
