@@ -6,6 +6,7 @@ use App\Model\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Redirect,Response;
 
 class RolesController extends Controller
 {
@@ -22,9 +23,9 @@ class RolesController extends Controller
         }else{
             $user = $userLogin->profile->nama;
         }
-        $roles = Role::all();
+        $roles = Role::orderBy('id','desc')->paginate(10);;
         $rolesLevel = array();
-        foreach ($roles as $key => $role) {
+        foreach (Role::all() as $key => $role) {
             array_push($rolesLevel, $role->level);
         }
         $level = ['1','2','3','4','5','6','7','8','9','10'];
@@ -82,10 +83,18 @@ class RolesController extends Controller
             return back()->with('error', 'Maaf Level Role sudah digunakan');
         }
 
-        $roleSave = Role::Create($request->all());
-        if ($roleSave) {
-            return redirect()->route('roles.index')->with('success', 'Role berhasil ditambahkan');
+        $roleSave = Role::updateOrCreate(['id' => $request->role_id],
+                    ['name' => $request->name, 'level' => $request->level]);
+        if (is_null($request->urutan_id) or empty($request->urutan_id)) {
+            $roleSave['urutan'] = count(Role::all());
+        }else{
+            $roleSave['urutan'] = count($request->urutan_id);
         }
+        // Create($request->all());
+        return Response::json($roleSave);
+        // if ($roleSave) {
+        //     return redirect()->route('roles.index')->with('success', 'Role berhasil ditambahkan');
+        // }
     }
 
     /**
